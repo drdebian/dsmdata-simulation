@@ -10,6 +10,7 @@ from matplotlib.offsetbox import AnchoredText
 # plt.style.use("default")
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
+from matplotlib.patches import Rectangle
 import numpy as np
 import scipy.linalg
 from typing import Any, Dict
@@ -20,10 +21,13 @@ def bar3d_plot(mydata: pd.DataFrame, xlabel="", ylabel="", zlabel="", title="", 
 
     if color == "red":
         cmap = cm.Reds
-    elif color == "rainbow":
-        cmap = cm.rainbow
+    elif color == "yellow":
+        cmap = cm.YlOrBr
+    elif color == "blue":
+        cmap = cm.Blues
     else:
         cmap = cm.Greens
+
 
     data = mydata.to_numpy()
     column_names = list(mydata.columns)
@@ -72,6 +76,10 @@ def contour_plot(mydata: np.array, order=0, xlabel="", ylabel="", zlabel="", tit
 
     if color == "red":
         cmap = cm.Reds
+    elif color == "yellow":
+        cmap = cm.YlOrBr
+    elif color == "blue":
+        cmap = cm.Blues
     else:
         cmap = cm.Greens
 
@@ -124,21 +132,31 @@ def contour_plot(mydata: np.array, order=0, xlabel="", ylabel="", zlabel="", tit
         Z = mydata[:, 2].reshape(X.shape)
         X, Y = Y, X
 
-    fig, ax0 = plt.subplots(1, 1, figsize=(7, 6))
+    #fig, ax0 = plt.subplots(1, 1, figsize=(7, 6))
+    fig, ax0 = plt.subplots(1, 1, figsize=(5, 4))
 
     # 2d plot
     plt.style.use("default")
     # plt.style.use("ggplot")
-    cpf = ax0.contourf(X, Y, Z, 7, cmap=cmap)
-    line_colors = ['black' for l in cpf.levels]
-    cp = ax0.contour(X, Y, Z, 7, colors=line_colors)
-    ax0.clabel(cp, fontsize=10, colors=line_colors, fmt='%.2f')
-    plt.colorbar(cpf, ax=ax0, label=zlabel)
+    if mydata[:, 2].std() > 0:
+        cpf = ax0.contourf(X, Y, Z, 7, cmap=cmap)
+        line_colors = ['black' for l in cpf.levels]
+        cp = ax0.contour(X, Y, Z, 7, colors=line_colors)
+        ax0.clabel(cp, fontsize=10, colors=line_colors, fmt='%.2f')
+        plt.colorbar(cpf, ax=ax0, label=zlabel)
+    else:
+        cpf = ax0.contourf(X, Y, Z, 7, cmap=cmap)
+        line_colors = ['black' for l in cpf.levels]
+        #plt.colorbar(cpf, ax=ax0, label=zlabel)
+        val = AnchoredText(zlabel + "\n$Value$ = " + str(round(mydata[:,2].mean(), 2)), frameon=True, loc='center')
+        val.patch.set_boxstyle("round, pad=0, rounding_size=.2")
+        ax0.add_artist(val)
     ax0.set_xticks(xvals)
     ax0.set_yticks(yvals)
     ax0.set_xlabel(xlabel)
     ax0.set_ylabel(ylabel)
-    ax0.set_title(title)
+    if title != "":
+        ax0.set_title(title)
 
     if order > 0:
         at = AnchoredText("$R^2$ = " + str(round(R2, 2)),
@@ -155,9 +173,13 @@ def surface_plot(mydata: np.array, order=0, xlabel="", ylabel="", zlabel="", tit
 
     if color == "red":
         cmap = cm.Reds
+    elif color == "yellow":
+        cmap = cm.YlOrBr
+    elif color == "blue":
+        cmap = cm.Blues
     else:
         cmap = cm.Greens
-
+    
     xvals = np.unique(mydata[:, 0])
     yvals = np.unique(mydata[:, 1])
 
@@ -758,3 +780,13 @@ def plot_sys_timeseries_stochastic(result0, result1, result2, result3, prodpv, d
     fig.tight_layout()
 
     return(fig)
+
+
+def recplot(ax, x, y, w, h, color, label, hatch):
+    ax.add_patch(Rectangle((x, y), w, h,
+                           edgecolor=color,
+                           fill=False,
+                           hatch=hatch,
+                           lw=1))
+    ax.annotate(label,  (x + w/2, y + h/2),
+                rotation=0, bbox=dict(facecolor=color, boxstyle='round'))
