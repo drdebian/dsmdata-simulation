@@ -24,7 +24,9 @@ def bar3d_plot(mydata: pd.DataFrame, xlabel="", ylabel="", zlabel="", title="", 
     elif color == "yellow":
         cmap = cm.YlOrBr
     elif color == "blue":
-        cmap = cm.Blues
+        cmap = cm.Blue
+    elif color == "rainbow":
+        cmap = cm.rainbow
     else:
         cmap = cm.Greens
 
