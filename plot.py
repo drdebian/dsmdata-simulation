@@ -30,7 +30,6 @@ def bar3d_plot(mydata: pd.DataFrame, xlabel="", ylabel="", zlabel="", title="", 
     else:
         cmap = cm.Greens
 
-
     data = mydata.to_numpy()
     column_names = list(mydata.columns)
     row_names = list(mydata.index.values)
@@ -144,13 +143,15 @@ def contour_plot(mydata: np.array, order=0, xlabel="", ylabel="", zlabel="", tit
         cpf = ax0.contourf(X, Y, Z, 7, cmap=cmap)
         line_colors = ['black' for l in cpf.levels]
         cp = ax0.contour(X, Y, Z, 7, colors=line_colors)
-        ax0.clabel(cp, fontsize=10, colors=line_colors, fmt='%.2f')
+        #ax0.clabel(cp, fontsize=10, colors=line_colors, fmt='%.2f')
+        ax0.clabel(cp, fontsize=10, colors=line_colors)
         plt.colorbar(cpf, ax=ax0, label=zlabel)
     else:
         cpf = ax0.contourf(X, Y, Z, 7, cmap=cmap)
         line_colors = ['black' for l in cpf.levels]
         #plt.colorbar(cpf, ax=ax0, label=zlabel)
-        val = AnchoredText(zlabel + "\n$Value$ = " + str(round(mydata[:,2].mean(), 2)), frameon=True, loc='center')
+        val = AnchoredText(zlabel + "\n$Value$ = " +
+                           str(round(mydata[:, 2].mean(), 2)), frameon=True, loc='center')
         val.patch.set_boxstyle("round, pad=0, rounding_size=.2")
         ax0.add_artist(val)
     ax0.set_xticks(xvals)
@@ -181,7 +182,7 @@ def surface_plot(mydata: np.array, order=0, xlabel="", ylabel="", zlabel="", tit
         cmap = cm.Blues
     else:
         cmap = cm.Greens
-    
+
     xvals = np.unique(mydata[:, 0])
     yvals = np.unique(mydata[:, 1])
 

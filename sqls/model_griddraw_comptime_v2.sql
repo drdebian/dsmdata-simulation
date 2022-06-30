@@ -7,11 +7,11 @@ select
 ,b.GridDraw
 ,a.runningtime
 ,case when a.PVProducedTotal > 0
-      then round((a.PowerDemandTotal - a.GridDrawTotal)/a.PowerDemandTotal, 2)
+      then round((a.PowerDemandTotal - a.GridDrawTotal)/a.PowerDemandTotal, 4)
 	  else 0
 	  end as SSR
 ,case when a.PVProducedTotal > 0
-      then round((a.PowerDemandTotal - a.GridDrawTotal)/a.PVProducedTotal, 2)
+      then round((a.PowerDemandTotal - a.GridDrawTotal)/a.PVProducedTotal, 4)
 	  else 0
 	  end as SCR
 from result1_direct b
@@ -33,11 +33,11 @@ select
 ,b.GridDraw
 ,a.runningtime
 ,case when a.PVProducedTotal > 0
-      then round((a.PowerDemandTotal - a.GridDrawTotal)/a.PowerDemandTotal, 2)
+      then round((a.PowerDemandTotal - a.GridDrawTotal)/a.PowerDemandTotal, 4)
 	  else 0
 	  end as SSR
 ,case when a.PVProducedTotal > 0
-      then round((a.PowerDemandTotal - a.GridDrawTotal)/a.PVProducedTotal, 2)
+      then round((a.PowerDemandTotal - a.GridDrawTotal)/a.PVProducedTotal, 4)
 	  else 0
 	  end as SCR
 from result1_rule b
@@ -58,11 +58,11 @@ select
 ,b.GridDraw
 ,a.runningtime
 ,case when a.PVProducedTotal > 0
-      then round((a.PowerDemandTotal - a.GridDrawTotal)/a.PowerDemandTotal, 2)
+      then round((a.PowerDemandTotal - a.GridDrawTotal)/a.PowerDemandTotal, 4)
 	  else 0
 	  end as SSR
 ,case when a.PVProducedTotal > 0
-      then round((a.PowerDemandTotal - a.GridDrawTotal)/a.PVProducedTotal, 2)
+      then round((a.PowerDemandTotal - a.GridDrawTotal)/a.PVProducedTotal, 4)
 	  else 0
 	  end as SCR
 from result1_pred b
@@ -83,11 +83,11 @@ select
 ,b.GridDraw
 ,a.runningtime
 ,case when a.PVProducedTotal > 0
-      then round((a.PowerDemandTotal - a.GridDrawTotal)/a.PowerDemandTotal, 2)
+      then round((a.PowerDemandTotal - a.GridDrawTotal)/a.PowerDemandTotal, 4)
 	  else 0
 	  end as SSR
 ,case when a.PVProducedTotal > 0
-      then round((a.PowerDemandTotal - a.GridDrawTotal)/a.PVProducedTotal, 2)
+      then round((a.PowerDemandTotal - a.GridDrawTotal)/a.PVProducedTotal, 4)
 	  else 0
 	  end as SCR
 from result2_stoch b
@@ -109,11 +109,11 @@ select
 ,b.GridDraw
 ,a.runningtime
 ,case when a.PVProducedTotal > 0
-      then round((a.PowerDemandTotal - a.GridDrawTotal)/a.PowerDemandTotal, 2)
+      then round((a.PowerDemandTotal - a.GridDrawTotal)/a.PowerDemandTotal, 4)
 	  else 0
 	  end as SSR
 ,case when a.PVProducedTotal > 0
-      then round((a.PowerDemandTotal - a.GridDrawTotal)/a.PVProducedTotal, 2)
+      then round((a.PowerDemandTotal - a.GridDrawTotal)/a.PVProducedTotal, 4)
 	  else 0
 	  end as SCR
 from result1_perfect b
