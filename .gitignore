@@ -1,8 +1,8 @@
 # ignore output directories
 output**/
-images**/
-logs**/
-database**/
+images_**/
+logs_**/
+database_**/
 archive**/
 
 # Byte-compiled / optimized / DLL files
