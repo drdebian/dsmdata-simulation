@@ -1,9 +1,9 @@
 # ignore output directories
-output**/
-images_**/
-logs_**/
-database_**/
-archive**/
+#output**/
+#images_**/
+#logs_**/
+#database_**/
+#archive**/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
